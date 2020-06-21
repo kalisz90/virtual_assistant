@@ -98,10 +98,10 @@ def commands_for_assistant(command):
         mail.close()
         talk('Email sent successfully Sir.')
 
-    elif 'wikipedia search' in command:
+    elif 'wikipedia' in command:
         regex = re.search('wikipedia (.+)', command)
         if regex:
-            query = command.split("wikipedia search",1)[1]
+            query = command.split("wikipedia",1)[1]
             response = requests.get("https://en.wikipedia.org/wiki/" + query)
             if response is not None:
                 html = bs4.BeautifulSoup(response.text, 'html.parser')
@@ -118,6 +118,7 @@ def commands_for_assistant(command):
                 mixer.init()
                 mixer.music.load('speech.mp3')
                 mixer.music.play()
+                time.sleep(30)
     elif 'stop' in command:
         mixer.music.stop()
 
@@ -155,7 +156,7 @@ def commands_for_assistant(command):
 	    #current_time = ctime()
         #print(ctime())
         talk(f'It is' + ' '+ ctime() + ' ' + 'my Sir!')
-        time.sleep(2)
+        time.sleep(4)
 
     elif 'how much is' in command:
         question = command
@@ -169,8 +170,13 @@ def commands_for_assistant(command):
         response = command.split(" ")
         wiki = wikipedia.summary(response, sentences=1)
         talk(wiki)
-        time.sleep(2)
+        time.sleep(10)
 
+    elif 'what is' in command:
+        response = command.split("is", 1)[1]
+        wiki = wikipedia.summary(response, sentences=1)
+        talk(wiki)
+        time.sleep(10)
 
     elif 'layla' in command:
         talk('What can I do for You?')
@@ -196,7 +202,7 @@ def commands_for_assistant(command):
         talk('I am your personal virtual assistant my Sir!')
         time.sleep(2)
 
-    elif 'what is your name' in command:
+    elif 'your name' in command:
         talk('My name is LAYLA my Sir!')
         time.sleep(2)
 
